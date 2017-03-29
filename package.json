@@ -1,0 +1,21 @@
+{
+  "name": "trek-method-override",
+  "version": "0.0.0",
+  "description": "Method override middleware",
+  "repository": "trekjs/method-override",
+  "author": {
+    "name": "Fangdun Cai",
+    "email": "cfddream@gmail.com",
+    "url": "fundon.me"
+  },
+  "license": "MIT",
+  "keywords": [
+    "trek",
+    "engine",
+    "middleware",
+    "method-override",
+    "HTTP",
+    "verbs"
+  ],
+  "main": "index.js"
+}
