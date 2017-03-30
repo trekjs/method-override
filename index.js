@@ -6,6 +6,7 @@
 
 'use strict'
 
+const { METHODS } = require('http')
 const vary = require('vary')
 
 const defaults = {
@@ -36,22 +37,28 @@ function methodOverrideWithConfig (options = {}) {
 
   return methodOverride
 
-  function methodOverride ({ req, res }, next) {
+  function methodOverride ({ req, rawRes }, next) {
     req.originalMethod = req.originalMethod || req.method
 
-    const m = (method === req.originalMethod) && extractor(field, req, res)
+    if (method === req.originalMethod) {
+      let m = extractor(field, req, rawRes)
 
-    if (m) {
-      req.method = m.toUpperCase()
+      if (Array.isArray(m)) m = m[0]
+
+      if (m) m = m.toUpperCase()
+
+      if (m && METHODS.includes(m)) {
+        req.method = m
+      }
     }
 
     return next()
   }
 }
 
-function methodFromHeader (header, req, res) {
+function methodFromHeader (header, req, rawRes) {
   // Set appropriate Vary header
-  vary(res, header)
+  vary(rawRes, header)
 
   return req.get(header)
 }
