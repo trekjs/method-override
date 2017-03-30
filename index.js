@@ -6,12 +6,14 @@
 
 'use strict'
 
+const vary = require('vary')
+
 const defaults = {
   method: 'POST',
   tokenLookup: 'header:X-HTTP-Method-Override'
 }
 
-module.exports = methodOverride
+module.exports = methodOverrideWithConfig
 
 function methodOverrideWithConfig (options = {}) {
   options = Object.assign({}, defaults, options)
@@ -29,7 +31,7 @@ function methodOverrideWithConfig (options = {}) {
     case 'query':
       extractor = methodFromQuery
       break
-    // no default
+    // No default
   }
 
   return methodOverride
@@ -37,16 +39,20 @@ function methodOverrideWithConfig (options = {}) {
   function methodOverride ({ req, res }, next) {
     req.originalMethod = req.originalMethod || req.method
 
-    if (method === req.originalMethod && (let m = extractor(field, req, res))) {
+    const m = (method === req.originalMethod) && extractor(field, req, res)
+
+    if (m) {
       req.method = m.toUpperCase()
     }
 
     return next()
   }
-
 }
 
 function methodFromHeader (header, req, res) {
+  // Set appropriate Vary header
+  vary(res, header)
+
   return req.get(header)
 }
 

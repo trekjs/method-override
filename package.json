@@ -17,5 +17,63 @@
     "HTTP",
     "verbs"
   ],
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "test": "xo && nyc ava"
+  },
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "nyc": "^10.2.0",
+    "trek-engine": "^1.0.0",
+    "xo": "^0.18.1"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "es6"
+    ],
+    "semicolon": false,
+    "space": true,
+    "ignores": [],
+    "rules": {
+      "curly": 0,
+      "ava/prefer-async-await": 0,
+      "import/no-dynamic-require": 0,
+      "import/no-named-as-default": 0,
+      "max-lines": 0,
+      "no-warning-comments": [
+        "error",
+        {
+          "terms": [
+            "todo",
+            "fixme"
+          ],
+          "location": "anywhere"
+        }
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always",
+        {
+          "arraysInObjects": true,
+          "objectsInObjects": true
+        }
+      ],
+      "space-before-function-paren": [
+        2,
+        "always"
+      ],
+      "yoda": 0
+    }
+  },
+  "dependencies": {
+    "vary": "^1.1.1"
+  }
 }
