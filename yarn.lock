@@ -224,7 +224,7 @@ ava-init@^0.2.0:
     read-pkg-up "^2.0.0"
     write-pkg "^2.0.0"
 
-ava@^0.18.2:
+ava@0.18:
   version "0.18.2"
   resolved "https://registry.yarnpkg.com/ava/-/ava-0.18.2.tgz#79253d1636077034a2780bb55b5c3e6c3d7f312f"
   dependencies:
@@ -756,8 +756,8 @@ camelcase@^3.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 camelcase@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.0.0.tgz#8b0f90d44be5e281b903b9887349b92595ef07f2"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -2735,7 +2735,7 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nyc@^10.2.0:
+nyc@10:
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/nyc/-/nyc-10.2.0.tgz#facd90240600c9aa4dd81ea99c2fb6a85c53de0c"
   dependencies:
@@ -3304,7 +3304,7 @@ request-promise-core@1.1.1:
   dependencies:
     lodash "^4.13.1"
 
-request-promise@^4.2.0:
+request-promise@4:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/request-promise/-/request-promise-4.2.0.tgz#684f77748d6b4617bee6a4ef4469906e6d074720"
   dependencies:
@@ -3312,7 +3312,7 @@ request-promise@^4.2.0:
     request-promise-core "1.1.1"
     stealthy-require "^1.0.0"
 
-request@^2.81.0:
+request@2, request@^2.81.0:
   version "2.81.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
   dependencies:
@@ -3719,7 +3719,7 @@ tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
-trek-body-parser@^0.1.4:
+trek-body-parser@0:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/trek-body-parser/-/trek-body-parser-0.1.4.tgz#edd4598bc4560ae7c6cd0713820c0d899e5d9378"
   dependencies:
@@ -3729,7 +3729,7 @@ trek-body-parser@^0.1.4:
     qs "6.3.0"
     raw-body "2.2.0"
 
-trek-engine@^1.0.0:
+trek-engine@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/trek-engine/-/trek-engine-1.0.0.tgz#23e0df108d5ebd1f9f40755e7b8c5b31a568dae0"
   dependencies:
@@ -4010,9 +4010,9 @@ xo-init@^0.5.0:
     the-argv "^1.0.0"
     write-pkg "^2.0.0"
 
-xo@^0.18.1:
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/xo/-/xo-0.18.1.tgz#529bb1cbd612f200221d76df90639d5c88cedf54"
+xo@0.19:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/xo/-/xo-0.19.0.tgz#ef757f0038c4a7a52e324c2ff89e97b59bb4637a"
   dependencies:
     arrify "^1.0.0"
     debug "^2.2.0"

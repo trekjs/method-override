@@ -188,3 +188,222 @@ test('with query should only work with POST', async t => {
   t.is(res.headers['x-got-method'], 'DELETE')
 })
 
+test('with header should work missing header', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'header:X-HTTP-Method-Override'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  t.is(res.headers['x-got-method'], 'POST')
+})
+
+test('with header should be case in in-sensitive', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'header:X-HTTP-Method-Override'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-HTTP-Method-Override': 'DELete'
+    }
+  })
+
+  t.is(res.headers['x-got-method'], 'DELETE')
+})
+
+test('with header should ignore invalid methods', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'header:X-HTTP-Method-Override'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-HTTP-Method-Override': 'BOGUS'
+    }
+  })
+
+  t.is(res.headers['x-got-method'], 'POST')
+})
+
+test('with header should handle multiple headers', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'header:X-HTTP-Method-Override'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-HTTP-Method-Override': 'DELETE, PUT'
+    }
+  })
+
+  t.is(res.headers['x-got-method'], 'DELETE')
+})
+
+test('with header should set Vary header', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'header:X-HTTP-Method-Override'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-HTTP-Method-Override': 'DELETE'
+    }
+  })
+
+  t.is(res.headers.vary, 'X-HTTP-Method-Override')
+  t.is(res.headers['x-got-method'], 'DELETE')
+})
+
+test('with header should set Vary header even with no override', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'header:X-HTTP-Method-Override'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  t.is(res.headers.vary, 'X-HTTP-Method-Override')
+  t.is(res.headers['x-got-method'], 'POST')
+})
+
+test('give "options.methods"', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    methods: ['POST', 'PATCH']
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'PATCH',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-HTTP-Method-Override': 'DELETE'
+    }
+  })
+
+  t.is(res.headers.vary, 'X-HTTP-Method-Override')
+  t.is(res.headers['x-got-method'], 'DELETE')
+})
+
+test('with query should work missing form', async t => {
+  const app = new Engine()
+
+  app.use(bodyParser())
+  app.use(methodOverride({
+    tokenLookup: 'form:_method'
+  }))
+
+  app.use(({ req, res }) => {
+    res.set('X-Got-Method', req.method)
+    res.end()
+  })
+
+  const uri = await listen(app)
+  const res = await request({
+    uri,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    form: {
+      _method: 'PATCH'
+    }
+  })
+
+  t.is(res.headers['x-got-method'], 'PATCH')
+})
+

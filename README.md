@@ -16,11 +16,21 @@ $ npm install trek-method-override --save
 'use strict'
 
 const Engine = require('trek-engine')
+const bodyParser = require('trek-body-parser')
+const methodOverride = require('trek-method-override')
 
 async function start () {
   const app = new Engine()
 
+  app.use(bodyParser())
+
+  app.use(methodOverride())
+
   app.use(ctx => {
+    ctx.res.body = {
+      method: ctx.req.method,
+      originalMethod: ctx.req.originalMethod
+    }
   })
 
   app.on('error', (err, ctx) => {
@@ -30,12 +40,18 @@ async function start () {
   app.run(3000)
 }
 
-start().catch(err => console.log(err))
+start().catch(console.log)
 ```
 
 
 ## API
 
+```js
+methodOverride({
+  methods: ['POST'],
+  tokenLookup: 'header:X-HTTP-Method-Override'
+})
+```
 
 
 ## Badges

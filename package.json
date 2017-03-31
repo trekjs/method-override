@@ -1,6 +1,6 @@
 {
   "name": "trek-method-override",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Method override middleware",
   "repository": "trekjs/method-override",
   "author": {
@@ -21,17 +21,24 @@
   "scripts": {
     "test": "xo && nyc ava"
   },
+  "engines": {
+    "node": ">=7.7"
+  },
+  "dependencies": {
+    "vary": "^1.1.1"
+  },
   "devDependencies": {
-    "ava": "^0.18.2",
-    "nyc": "^10.2.0",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.0",
-    "trek-body-parser": "^0.1.4",
-    "trek-engine": "^1.0.0",
-    "xo": "^0.18.1"
+    "ava": "0.18",
+    "nyc": "10",
+    "request": "2",
+    "request-promise": "4",
+    "trek-body-parser": "0",
+    "trek-engine": "1",
+    "xo": "0.19"
   },
   "nyc": {
     "reporter": [
+      "html",
       "lcov",
       "text"
     ]
@@ -75,8 +82,5 @@
       ],
       "yoda": 0
     }
-  },
-  "dependencies": {
-    "vary": "^1.1.1"
   }
 }

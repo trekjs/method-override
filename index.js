@@ -10,7 +10,7 @@ const { METHODS } = require('http')
 const vary = require('vary')
 
 const defaults = {
-  method: 'POST',
+  methods: ['POST'],
   tokenLookup: 'header:X-HTTP-Method-Override'
 }
 
@@ -19,7 +19,7 @@ module.exports = methodOverrideWithConfig
 function methodOverrideWithConfig (options = {}) {
   options = Object.assign({}, defaults, options)
 
-  const { method, tokenLookup } = options
+  const { methods, tokenLookup } = options
 
   const [via, field] = tokenLookup.split(':')
 
@@ -40,7 +40,7 @@ function methodOverrideWithConfig (options = {}) {
   function methodOverride ({ req, rawRes }, next) {
     req.originalMethod = req.originalMethod || req.method
 
-    if (method === req.originalMethod) {
+    if (methods.includes(req.originalMethod)) {
       let m = extractor(field, req, rawRes)
 
       if (Array.isArray(m)) m = m[0]
@@ -60,7 +60,8 @@ function methodFromHeader (header, req, rawRes) {
   // Set appropriate Vary header
   vary(rawRes, header)
 
-  return req.get(header)
+  // Multiple headers get joined with comma by node core
+  return (req.get(header) || '').split(/ *, */)
 }
 
 function methodFromForm (param, req) {
