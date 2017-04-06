@@ -1,6 +1,6 @@
 /*!
  * trek-method-override
- * Copyright(c) 2017 Fangdun Cai
+ * Copyright(c) 2017 Fangdun Cai <cfddream@gmail.com> (https://fundon.me)
  * MIT Licensed
  */
 
@@ -45,10 +45,9 @@ function methodOverrideWithConfig (options = {}) {
 
       if (Array.isArray(m)) m = m[0]
 
-      if (m) m = m.toUpperCase()
-
-      if (m && METHODS.includes(m)) {
-        req.method = m
+      if (m) {
+        m = m.toUpperCase()
+        if (METHODS.includes(m)) req.method = m
       }
     }
 

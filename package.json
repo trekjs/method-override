@@ -1,6 +1,6 @@
 {
   "name": "trek-method-override",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Method override middleware",
   "repository": "trekjs/method-override",
   "author": {
@@ -28,7 +28,7 @@
     "vary": "^1.1.1"
   },
   "devDependencies": {
-    "ava": "0.18",
+    "ava": "0.19",
     "nyc": "10",
     "request": "2",
     "request-promise": "4",
